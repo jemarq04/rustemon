@@ -22,6 +22,7 @@ async fn main() {
     static_resources::get_item_category();
     static_resources::get_item_fling_effect();
     static_resources::get_item_pocket();
+    static_resources::get_currency();
     static_resources::get_location();
     static_resources::get_location_area();
     static_resources::get_pal_park_area();

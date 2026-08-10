@@ -100,6 +100,11 @@ pub fn get_item_pocket() -> crate::model::items::ItemPocket {
     serde_json::from_str(r#"{"id":3,"name":"pokeballs","categories":[{"name":"special-balls","url":"https://pokeapi.co/api/v2/item-category/33/"},{"name":"standard-balls","url":"https://pokeapi.co/api/v2/item-category/34/"},{"name":"apricorn-balls","url":"https://pokeapi.co/api/v2/item-category/39/"}],"names":[{"name":"精靈球","language":{"name":"zh-hant","url":"https://pokeapi.co/api/v2/language/4/"}},{"name":"Balls","language":{"name":"fr","url":"https://pokeapi.co/api/v2/language/5/"}},{"name":"Bolas","language":{"name":"es","url":"https://pokeapi.co/api/v2/language/7/"}},{"name":"Poké Balls","language":{"name":"en","url":"https://pokeapi.co/api/v2/language/9/"}},{"name":"精灵球","language":{"name":"zh-hans","url":"https://pokeapi.co/api/v2/language/12/"}},{"name":"Bolas","language":{"name":"es-419","url":"https://pokeapi.co/api/v2/language/14/"}}]}"#).unwrap()
 }
 
+/// Get a statically defined [`Currency`].
+pub fn get_currency() -> crate::model::items::Currency {
+    serde_json::from_str(r#"{"id":1,"name":"poke-dollar","names":[{"name":"Pokémon Dollar","language":{"name":"en","url":"https://pokeapi.co/api/v2/language/9/"}}]}"#).unwrap()
+}
+
 /// Get a statically defined [`Location`].
 pub fn get_location() -> crate::model::locations::Location {
     serde_json::from_str(r#"{"id":5,"name":"sinnoh-pokemon-league","region":{"name":"sinnoh","url":"https://pokeapi.co/api/v2/region/4/"},"names":[{"name":"Ligue Pokémon","language":{"name":"fr","url":"https://pokeapi.co/api/v2/language/5/"}},{"name":"Pokémon-Liga","language":{"name":"de","url":"https://pokeapi.co/api/v2/language/6/"}},{"name":"Pokémon League","language":{"name":"en","url":"https://pokeapi.co/api/v2/language/9/"}}],"game_indices":[{"game_index":15,"generation":{"name":"generation-iv","url":"https://pokeapi.co/api/v2/generation/4/"}}],"areas":[{"name":"sinnoh-pokemon-league-area","url":"https://pokeapi.co/api/v2/location-area/5/"}]}"#).unwrap()

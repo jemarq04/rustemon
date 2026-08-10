@@ -2,7 +2,7 @@
 
 use super::{
     evolution::EvolutionChain,
-    games::Version,
+    games::{Version, VersionGroup},
     pokemon::Pokemon,
     resource::{
         ApiResource, Description, Effect, GenerationGameIndex, MachineVersionDetail, Name,
@@ -18,8 +18,6 @@ pub struct Item {
     pub id: i64,
     /// The name for this resource.
     pub name: String,
-    /// The price of this item in stores.
-    pub cost: i64,
     /// The power of the move Fling when used with this item.
     pub fling_power: Option<i64>,
     /// The effect of the move Fling when used with this item.
@@ -34,6 +32,8 @@ pub struct Item {
     pub flavor_text_entries: Vec<VersionGroupFlavorText>,
     /// A list of game indices relevent to this item by generation.
     pub game_indices: Vec<GenerationGameIndex>,
+    /// The purchase and sell prices of this item for each version group.
+    pub prices: Vec<ItemPrice>,
     /// The name of this item listed in different languages.
     pub names: Vec<Name>,
     /// A set of sprites used to depict this item in the game.
@@ -132,4 +132,32 @@ pub struct ItemPocket {
     pub categories: Vec<NamedApiResource<ItemCategory>>,
     /// The name of this resource listed in different languages.
     pub names: Vec<Name>,
+}
+
+/// [Currency official documentation](https://pokeapi.co/docs/v2#currency)
+#[derive(Debug, Clone, PartialEq, Eq, serde::Deserialize)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize))]
+pub struct Currency {
+    /// The identifier for this resource.
+    pub id: i64,
+    /// The name for this resource.
+    pub name: String,
+    /// The name of this resource listed in different languages.
+    pub names: Vec<Name>,
+}
+
+/// [ItemPrice official documentation](https://pokeapi.co/docs/v2#itemprice)
+#[derive(Debug, Clone, PartialEq, Eq, serde::Deserialize)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize))]
+pub struct ItemPrice {
+    /// The currency used for this price.
+    pub currency: NamedApiResource<Currency>,
+    /// The purchase price of this item in this version group.
+    /// Null if the item cannot be purchased.
+    pub purchase_price: Option<i64>,
+    /// The sell price of this item in this version group.
+    /// Null if the item cannot be sold.
+    pub sell_price: Option<i64>,
+    /// The version group these prices apply to.
+    pub version_group: NamedApiResource<VersionGroup>,
 }

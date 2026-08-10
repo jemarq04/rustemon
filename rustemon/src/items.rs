@@ -26,3 +26,8 @@ pub mod item_fling_effect {
 pub mod item_pocket {
     crate::endpoint!(crate::model::items::ItemPocket; for "item-pocket");
 }
+
+/// Currencies are forms of money used throughout the Pokémon games to purchase items, services, and participate in various game mechanics.
+pub mod currency {
+    crate::endpoint!(crate::model::items::Currency; for "currency");
+}
