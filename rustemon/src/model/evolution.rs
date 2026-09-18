@@ -5,8 +5,9 @@ use super::{
     items::Item,
     locations::{Location, Region},
     moves::Move,
-    pokemon::{Pokemon, PokemonSpecies, Type},
+    pokemon::{Nature, PokemonForm, PokemonSpecies, Type},
     resource::{Name, NamedApiResource},
+    utility::Language,
 };
 
 /// [EvolutionChain official documentation](https:///pokeapi.co/docs/v2#evolutionchain)
@@ -97,9 +98,9 @@ pub struct EvolutionDetail {
     /// The required region in which this evolution can occur.
     pub region: Option<NamedApiResource<Region>>,
     /// The required form for which this evolution can occur.
-    pub base_form: Option<NamedApiResource<Pokemon>>,
+    pub required_pokemon_form: Option<NamedApiResource<PokemonForm>>,
     /// The form to which this evolution occurs.
-    pub evolved_form: Option<NamedApiResource<Pokemon>>,
+    pub evolved_pokemon_form: Option<NamedApiResource<PokemonForm>>,
     /// The move that must be used by the evolving Pokémon species during the evolution trigger event
     /// in order to evolve into this Pokémon species.
     pub used_move: Option<NamedApiResource<Move>>,
@@ -110,6 +111,10 @@ pub struct EvolutionDetail {
     /// The minimum amount of damage taken during the evolution trigger event in order to
     /// evolve into this Pokémon species.
     pub min_damage_taken: Option<i64>,
+    /// TODO: Placeholder
+    pub allowed_natures: Option<Vec<NamedApiResource<Nature>>>,
+    /// TODO: Placeholder
+    pub condition_expression: Option<EvolutionConditionExpression>,
 }
 
 /// [EvolutionTrigger official documentation](https:///pokeapi.co/docs/v2#evolutiontrigger)
@@ -124,4 +129,44 @@ pub struct EvolutionTrigger {
     pub names: Vec<Name>,
     /// A list of pokemon species that result from this evolution trigger.
     pub pokemon_species: Vec<NamedApiResource<PokemonSpecies>>,
+}
+
+/// TODO: Placeholder
+#[derive(Debug, Clone, PartialEq, Eq, serde::Deserialize)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize))]
+pub struct EvolutionConditionExpression {
+    /// TODO: Placeholder
+    pub expression: String,
+    /// TODO: Placeholder
+    pub percentage_chance: Option<i64>,
+    /// TODO: Placeholder
+    pub variables: Vec<EvolutionVariable>,
+}
+
+/// TODO: Placeholder
+#[derive(Debug, Clone, PartialEq, Eq, serde::Deserialize)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize))]
+pub struct EvolutionVariable {
+    /// TODO: Placeholder
+    pub descriptions: Vec<EvolutionVariableDescription>,
+    /// TODO: Placeholder
+    pub id: i64,
+    /// TODO: Placeholder
+    pub name: String,
+    /// TODO: Placeholder
+    pub names: Vec<Name>,
+    /// TODO: Placeholder
+    pub symbol: String,
+    /// TODO: Placeholder
+    pub version_group: NamedApiResource<VersionGroup>,
+}
+
+/// TODO: Placeholder
+#[derive(Debug, Clone, PartialEq, Eq, serde::Deserialize)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize))]
+pub struct EvolutionVariableDescription {
+    /// TODO: Placeholder
+    pub description: String,
+    /// TODO: Placeholder
+    pub language: NamedApiResource<Language>,
 }
