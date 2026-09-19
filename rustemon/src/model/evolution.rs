@@ -140,13 +140,15 @@ pub struct EvolutionConditionExpression {
     /// TODO: Placeholder
     pub percentage_chance: Option<i64>,
     /// TODO: Placeholder
-    pub variables: Vec<EvolutionVariable>,
+    pub variables: Vec<NamedApiResource<EvolutionVariable>>,
 }
 
 /// TODO: Placeholder
 #[derive(Debug, Clone, PartialEq, Eq, serde::Deserialize)]
 #[cfg_attr(feature = "serialize", derive(serde::Serialize))]
 pub struct EvolutionVariable {
+    /// TODO: Placeholder
+    pub data_type: String,
     /// TODO: Placeholder
     pub descriptions: Vec<EvolutionVariableDescription>,
     /// TODO: Placeholder
