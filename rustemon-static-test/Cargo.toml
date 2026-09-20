@@ -17,5 +17,5 @@ anyhow = "1.0.104"
 rustemon = { path = "../rustemon", features = ["serialize"] }
 serde.workspace = true
 serde_json.workspace = true
-tera = "2.0.0"
-tokio = { version = "1.53.0", features = ["rt-multi-thread", "macros"] }
+tera = "2.4.0"
+tokio = { workspace = true, features = ["rt-multi-thread", "macros"] }
