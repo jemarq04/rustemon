@@ -62,6 +62,7 @@ async fn get_data(rc: &RustemonClient) -> anyhow::Result<Vec<(String, String, St
         get_json_body(|| items::item_category::get_by_id(3, rc)).await?,
         get_json_body(|| items::item_fling_effect::get_by_id(3, rc)).await?,
         get_json_body(|| items::item_pocket::get_by_id(3, rc)).await?,
+        get_json_body(|| items::currency::get_by_id(1, rc)).await?,
         // Locations endpoints
         get_json_body(|| locations::location::get_by_id(5, rc)).await?,
         get_json_body(|| locations::location_area::get_by_id(5, rc)).await?,
