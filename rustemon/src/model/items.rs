@@ -18,6 +18,8 @@ pub struct Item {
     pub id: i64,
     /// The name for this resource.
     pub name: String,
+    /// The price of this item in stores.
+    pub cost: Option<i64>,
     /// The power of the move Fling when used with this item.
     pub fling_power: Option<i64>,
     /// The effect of the move Fling when used with this item.
