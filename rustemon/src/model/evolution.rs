@@ -5,8 +5,8 @@ use super::{
     items::Item,
     locations::{Location, Region},
     moves::Move,
-    pokemon::{Pokemon, PokemonSpecies, Type},
-    resource::{Name, NamedApiResource},
+    pokemon::{Nature, PokemonForm, PokemonSpecies, Type},
+    resource::{Description, Name, NamedApiResource},
 };
 
 /// [EvolutionChain official documentation](https:///pokeapi.co/docs/v2#evolutionchain)
@@ -97,9 +97,9 @@ pub struct EvolutionDetail {
     /// The required region in which this evolution can occur.
     pub region: Option<NamedApiResource<Region>>,
     /// The required form for which this evolution can occur.
-    pub base_form: Option<NamedApiResource<Pokemon>>,
+    pub required_pokemon_form: Option<NamedApiResource<PokemonForm>>,
     /// The form to which this evolution occurs.
-    pub evolved_form: Option<NamedApiResource<Pokemon>>,
+    pub evolved_pokemon_form: Option<NamedApiResource<PokemonForm>>,
     /// The move that must be used by the evolving Pokémon species during the evolution trigger event
     /// in order to evolve into this Pokémon species.
     pub used_move: Option<NamedApiResource<Move>>,
@@ -110,6 +110,11 @@ pub struct EvolutionDetail {
     /// The minimum amount of damage taken during the evolution trigger event in order to
     /// evolve into this Pokémon species.
     pub min_damage_taken: Option<i64>,
+    /// A list of natures the evolving Pokémon species must have to evolve into this Pokémon species.
+    pub allowed_natures: Option<Vec<NamedApiResource<Nature>>>,
+    /// An expression detailing variable-dependent conditional evolution requirements
+    /// (such as encryption constant or personality value calculations).
+    pub condition_expression: Option<EvolutionConditionExpression>,
 }
 
 /// [EvolutionTrigger official documentation](https:///pokeapi.co/docs/v2#evolutiontrigger)
@@ -124,4 +129,36 @@ pub struct EvolutionTrigger {
     pub names: Vec<Name>,
     /// A list of pokemon species that result from this evolution trigger.
     pub pokemon_species: Vec<NamedApiResource<PokemonSpecies>>,
+}
+
+/// [EvolutionConditionExpression official documentation](https://pokeapi.co/docs/v2#evolutionconditionexpression)
+#[derive(Debug, Clone, PartialEq, Eq, serde::Deserialize)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize))]
+pub struct EvolutionConditionExpression {
+    /// Evaluatable RPN condition expression using evolution variables (e.g. 'EC 100 % 0 ==').
+    pub expression: String,
+    /// Percentage chance of evolution under this condition (0-100).
+    pub percentage_chance: Option<i64>,
+    /// Evolution variables referenced in the expression.
+    pub variables: Vec<NamedApiResource<EvolutionVariable>>,
+}
+
+/// [EvolutionVariable official documentation](https://pokeapi.co/docs/v2#evolutionvariable)
+#[derive(Debug, Clone, PartialEq, Eq, serde::Deserialize)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize))]
+pub struct EvolutionVariable {
+    /// The identifier for this resource.
+    pub id: i64,
+    /// The name for this resource.
+    pub name: String,
+    /// The symbol used to represent this variable in condition expressions.
+    pub symbol: String,
+    /// The data type of the variable.
+    pub data_type: String,
+    /// The version group in which this evolution variable was introduced.
+    pub version_group: NamedApiResource<VersionGroup>,
+    /// The name of this resource listed in different languages.
+    pub names: Vec<Name>,
+    /// The description of this resource listed in different languages.
+    pub descriptions: Vec<Description>,
 }
